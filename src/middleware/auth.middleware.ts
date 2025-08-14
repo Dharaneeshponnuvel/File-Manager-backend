@@ -3,7 +3,7 @@ import { supabase } from "../services/supabase";
 
 // AuthRequest interface
 export interface AuthRequest extends Request {
-  user?: { id: string; email?: string; name?: string };
+  user?: { id: string; email: string; name?: string };
 }
 
 
@@ -24,7 +24,7 @@ export const authenticateUser = async (
 
   req.user = { 
     id: data.user.id || "", 
-    email: data.user.email || "", 
+    email: data.user.email ?? "", 
     name: data.user.user_metadata?.full_name || "" 
   };
     next();
