@@ -1,8 +1,9 @@
-import 'express-session';
+import { Request } from 'express';
 
-declare module 'express-session' {
-  interface SessionData {
-    userId?: string;
-    email?: string;
-  }
+interface AuthRequest extends Request {
+  user?: {
+    id: string;
+    email: string;  // TS error: sometimes undefined
+    name?: string;
+  };
 }
