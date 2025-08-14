@@ -1,7 +1,8 @@
-import "express-session";
+import 'express-session';
 
-declare module "express-session" {
+declare module 'express-session' {
   interface SessionData {
-    user_id?: string;
+    userId?: string;
+    email?: string;
   }
 }
