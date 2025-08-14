@@ -4,8 +4,14 @@ import upload from "../middleware/upload";
 import { supabase } from "../services/supabase";
 import dotenv from "dotenv";
 import { authenticateUser, AuthRequest } from "../middleware/auth.middleware";
+import { NextFunction } from "express";
 
 dotenv.config();
+
+
+interface FileUploadRequest extends AuthRequest {
+  file?: Express.Multer.File;
+}
 const router = Router();
 
 const s3 = new S3Client({
@@ -18,9 +24,9 @@ const s3 = new S3Client({
 
 router.post(
   "/upload",
-  authenticateUser, // ✅ Protect route
+  authenticateUser,
   upload.single("file"),
-  async (req: AuthRequest, res: Response) => {
+  async (req: FileUploadRequest, res: Response, next: NextFunction) => {
     try {
       if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
@@ -44,7 +50,7 @@ router.post(
           file_url: file_Url,
           size: req.file.size,
           format: req.file.mimetype,
-          user_id: req.user?.id, // ✅ Comes from middleware
+          user_id: req.user?.id,
         },
       ]);
 
