@@ -12,7 +12,14 @@ const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+	origin: [
+		'http://localhost:3000', // local frontend
+		'https://file-manager-backend-grev-fthb7h4kz.vercel.app', // deployed backend
+		'https://your-frontend-domain.com' // <-- replace with your deployed frontend domain
+	],
+	credentials: true
+}));
 app.use(express.json());
 
 
@@ -21,6 +28,4 @@ app.use("/api/folder", folderRouter);
 app.use("/api/edit", editRouter);
 app.use("/api/share", ShareRouter);
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+export default app;
