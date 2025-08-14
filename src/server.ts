@@ -8,19 +8,19 @@ import editRouter from "./routes/edit";
 import ShareRouter from "./routes/share";
 dotenv.config();
 
-const app = express();
-app.use(express.json());
-const PORT = process.env.PORT || 5000;
 
+const app = express();
 app.use(cors({
 	origin: [
-		'http://localhost:3000', // local frontend
-		'https://file-manager-backend-grev-fthb7h4kz.vercel.app', // deployed backend
-		'https://your-frontend-domain.com' // <-- replace with your deployed frontend domain
+		'http://localhost:3000',
+		'https://file-manager-backend-grev-dharaneeshp56-gmailcoms-projects.vercel.app',
+		'https://file-manager-backend-grev-fthb7h4kz.vercel.app',
+		// Add your deployed frontend URL here if needed
 	],
 	credentials: true
 }));
 app.use(express.json());
+const PORT = process.env.PORT || 5000;
 
 
 app.use("/api", fileRoutes);
